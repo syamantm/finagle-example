@@ -1,0 +1,32 @@
+
+apply plugin: 'scala'
+
+description = """finagle-example-server"""
+
+mainClassName = "com.syamantakm.finagle.HelloWorldServerMain"
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile "org.scala-lang:scala-library:2.11.6"
+    compile 'com.twitter.finatra:finatra-http_2.11:2.0.0.M1'
+    compile 'com.twitter.finatra:finatra-logback_2.11:2.0.0.M1'
+
+    testCompile 'com.twitter.finatra:finatra-http_2.11:2.0.0.M1_2.11'
+    testCompile 'com.twitter.inject:inject-server_2.11:2.0.0.M1_2.11'
+    testCompile 'com.twitter.inject:inject-app_2.11:2.0.0.M1_2.11'
+    testCompile 'com.twitter.inject:inject-core_2.11:2.0.0.M1_2.11'
+    testCompile 'com.twitter.inject:inject-modules_2.11:2.0.0.M1_2.11'
+    testCompile 'com.twitter.finatra:finatra-http_2.11:2.0.0.M1_2.11:tests'
+    testCompile 'com.twitter.inject:inject-server_2.11:2.0.0.M1_2.11:tests'
+    testCompile 'com.twitter.inject:inject-app_2.11:2.0.0.M1_2.11:tests'
+    testCompile 'com.twitter.inject:inject-core_2.11:2.0.0.M1_2.11:tests'
+    testCompile 'com.twitter.inject:inject-modules_2.11:2.0.0.M1_2.11:tests'
+
+    testCompile "org.testng:testng:6.8"
+    testCompile group: 'org.mockito', name: 'mockito-core', version:'1.10.19'
+    testCompile "org.scalatest:scalatest_2.11:2.2.4"
+}
+

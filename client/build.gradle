@@ -1,0 +1,19 @@
+
+description = """scala-karyon-example-client"""
+
+mainClassName = "com.syamntakm.feign.client.Main"
+
+dependencies {
+    compile "com.netflix.feign:feign-core:8.3.0"
+    compile group: 'com.typesafe.akka', name: 'akka-actor_2.11', version: '2.4-M1'
+}
+
+test {
+    // enable TestNG support (default is JUnit)
+    useTestNG()
+
+    // listen to events in the test execution lifecycle
+    beforeTest { descriptor ->
+       logger.lifecycle("Running test: " + descriptor)
+    }
+}

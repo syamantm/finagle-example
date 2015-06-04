@@ -1,0 +1,24 @@
+group = "com.syamantakm.finagle"
+version = '1.1-SNAPSHOT'
+
+description = """finagle-example"""
+
+apply plugin: 'idea'
+
+subprojects {
+    apply plugin: 'scala'
+    apply plugin: 'application'
+
+    repositories {
+        maven { url 'http://maven.twttr.com/' }
+        mavenCentral()
+    }
+
+    dependencies {
+        compile "org.scala-lang:scala-library:2.11.6"
+
+        testCompile "org.testng:testng:6.8"
+        testCompile group: 'org.mockito', name: 'mockito-core', version: '1.10.19'
+        testCompile "org.scalatest:scalatest_2.11:2.2.4"
+    }
+}
