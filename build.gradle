@@ -19,6 +19,6 @@ subprojects {
 
         testCompile "org.testng:testng:6.8"
         testCompile group: 'org.mockito', name: 'mockito-core', version: '1.10.19'
-        testCompile "org.scalatest:scalatest_2.11:2.2.4"
+        testCompile "org.scalatest:scalatest_2.11:3.0.0-SNAP5"
     }
 }

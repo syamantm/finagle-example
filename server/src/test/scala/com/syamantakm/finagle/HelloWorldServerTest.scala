@@ -18,6 +18,12 @@ class HelloWorldServerTest extends FeatureTest {
         andExpect = Ok,
         withBody = "Hello Bob")
     }
+    "Say hi with json" in {
+      server.httpGet(
+        path = "/hi/Bob",
+        andExpect = Ok,
+        withBody = """{"name":"Bob", "id": 1}""")
+    }
   }
 
 }

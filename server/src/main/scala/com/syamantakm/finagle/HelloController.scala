@@ -13,9 +13,10 @@ class HelloController extends Controller {
     "Hello " + request.params.getOrElse("name", "unnamed")
   }
 
-  get("/hi/:name") { request: HelloRequest =>
-    info("hi")
-    SayHello(request.name)
+  post("/hello") { request: Request =>
+    info("hello")
+    info(request.getContentString)
+    SayHello("anonymous")
   }
 
 

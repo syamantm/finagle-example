@@ -1,11 +1,12 @@
 
-description = """scala-karyon-example-client"""
+description = """finagle-example-client"""
 
-mainClassName = "com.syamntakm.feign.client.Main"
+mainClassName = "com.syamantakm.finagle.client.HelloClientMain"
 
 dependencies {
-    compile "com.netflix.feign:feign-core:8.3.0"
-    compile group: 'com.typesafe.akka', name: 'akka-actor_2.11', version: '2.4-M1'
+    compile "org.scala-lang:scala-library:2.11.6"
+    compile 'com.twitter:finagle-http_2.11:6.25.0'
+
 }
 
 test {
