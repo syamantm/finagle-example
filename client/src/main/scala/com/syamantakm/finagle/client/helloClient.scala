@@ -61,7 +61,6 @@ class HelloClient {
   }
 
   def sayHello(httpClient: Service[HttpRequest, HttpResponse]): String = {
-    val authHandler = new AuthHandler
     val request: HttpRequest = RequestBuilder()
       .url("http://localhost:8888/hello")
       .buildPost(ChannelBuffers.copiedBuffer(HelloRequest("bob").toJson, StandardCharsets.UTF_8))
