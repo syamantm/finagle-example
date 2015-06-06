@@ -52,7 +52,7 @@ class HelloClient {
       promise.setException(exception)
     }
 
-    Await.result(promise)
+    Await.result(promise, Duration(2, TimeUnit.SECONDS))
   }
 
   def sayHi(httpClient: Service[HttpRequest, HttpResponse]): String = {
@@ -61,8 +61,9 @@ class HelloClient {
   }
 
   def sayHello(httpClient: Service[HttpRequest, HttpResponse]): String = {
-
-    val request: HttpRequest = RequestBuilder().url("http://localhost:8888/hello")
+    val authHandler = new AuthHandler
+    val request: HttpRequest = RequestBuilder()
+      .url("http://localhost:8888/hello")
       .buildPost(ChannelBuffers.copiedBuffer(HelloRequest("bob").toJson, StandardCharsets.UTF_8))
     getStringResponse(request, httpClient)
   }
@@ -76,13 +77,23 @@ object HelloClientMain extends App {
   val retryRequests: SimpleFilter[HttpRequest, HttpResponse] = RetryingService.tries(2, new NullStatsReceiver)
   val requestTimesOut: SimpleFilter[HttpRequest, HttpResponse] = new TimeoutFilter(Duration(2, TimeUnit.SECONDS), new JavaTimer(false))
 
-  val client = handleErrors andThen retryRequests andThen requestTimesOut andThen clientWithoutErrorHandling
+  val authHandler = new AuthHandler
+
+  val client = handleErrors andThen retryRequests andThen requestTimesOut andThen authHandler andThen clientWithoutErrorHandling
 
   val helloClient = new HelloClient
 
   println(helloClient.sayHi(client))
 
-  println(helloClient.sayHello(client))
+  try {
+    println(helloClient.sayHello(client))
+  } catch {
+    case exception: Exception => {
+      exception.printStackTrace()
+      System.exit(1)
+    }
+
+  }
 
   System.exit(0)
 }

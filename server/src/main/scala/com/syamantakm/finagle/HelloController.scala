@@ -1,5 +1,7 @@
 package com.syamantakm.finagle
 
+import java.util.UUID
+
 import com.twitter.finagle.http.Request
 import com.twitter.finatra.http.Controller
 
@@ -15,8 +17,22 @@ class HelloController extends Controller {
 
   post("/hello") { request: Request =>
     info("hello")
-    info(request.getContentString)
-    SayHello("anonymous")
+    request.getHttpRequest.headers.contains("auth") match {
+      case true => {
+        info(request.getContentString)
+        SayHello("anonymous")
+      }
+      case false => {
+        response.forbidden("No auth header")
+      }
+    }
+
+  }
+
+  get("/auth") { request: Request =>
+    info("auth")
+    AuthResponse(UUID.randomUUID.toString)
+
   }
 
 
