@@ -42,15 +42,6 @@ class AuthHandler extends SimpleFilter[Req, Resp] {
     }
   }
 
-  private def renewToken(client: Service[Req, Resp]) = {
-    try {
-      writeLock.tryLock(2, TimeUnit.SECONDS)
-      token = Some(getStringResponse(authRequest, client))
-    } finally {
-      writeLock.unlock()
-    }
-  }
-
   private def getStringResponse(authRequest: Req, client: Service[Req, Resp]): String = {
     val promise = Promise[String]
     val future = client(authRequest)
@@ -68,12 +59,5 @@ class AuthHandler extends SimpleFilter[Req, Resp] {
     println(s"Auth Token:$token")
     request.headers().add("auth", token)
     service(request)
-  }
-}
-
-
-object AuthHandler {
-  def apply = {
-    new AuthHandler
   }
 }
