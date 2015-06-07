@@ -14,7 +14,7 @@ import com.twitter.finatra.logging.modules.LogbackModule
 object HelloWorldServerMain extends HelloWorldServer
 
 
-class HelloWorldServer  extends HttpServer {
+class HelloWorldServer extends HttpServer {
   override def modules = Seq(LogbackModule)
 
   override def configureHttp(router: HttpRouter) {
